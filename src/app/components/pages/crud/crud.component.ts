@@ -11,6 +11,9 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 })
 export class CrudComponent {
   userForm: FormGroup;
+  isEditing = false;
+  users: any[] = [];
+  user: any = {};
   alert: any = {
     type: 'success',
     message: 'User submitted successfully!',
@@ -34,8 +37,11 @@ export class CrudComponent {
       this.alert.type = 'success';
       this.alert.message = 'User submitted successfully!';
       this.alert.icon = 'fa-solid fa-circle-check';
+      
+      this.users.push(this.userForm.value);
+      this.userForm.reset();
+
       setTimeout(() => {
-        this.userForm.reset();
         this.alert.show = false;
       }, 3000);
     } else {
@@ -47,5 +53,68 @@ export class CrudComponent {
         this.alert.show = false;
       }, 4000);
     }
+  }
+
+  viewUser(user: any) {
+    this.user = user;
+  }
+
+  editUser(user: any) {
+    this.isEditing = true;
+    this.userForm.patchValue({
+      firstname: user.firstname,
+      lastname: user.lastname,
+      birthday: user.birthday,
+      email: user.email,
+      description: user.description
+    });
+  }
+
+  updateUser() {
+    if (this.userForm.valid) {
+      this.alert.show = true;
+      this.alert.type = 'success';
+      this.alert.message = 'User updated successfully!';
+      this.alert.icon = 'fa-solid fa-circle-check';
+
+      const index = this.users.findIndex(u => u.email === this.user.email);
+      if (index !== -1) {
+        this.users[index] = this.userForm.value;
+      }
+      this.userForm.reset();
+      this.isEditing = false;
+
+      setTimeout(() => {
+        this.alert.show = false;
+      }, 3000);
+    } else {
+      this.alert.show = true;
+      this.alert.type = 'danger';
+      this.alert.message = 'Something is wrong, please try again later.';
+      this.alert.icon = 'fa-solid fa-circle-exclamation';
+      setTimeout(() => {
+        this.alert.show = false;
+      }, 4000);
+    }
+  }
+
+  deleteUser() {
+    const index = this.users.findIndex(u => u.email === this.user.email);
+    if (index !== -1) {
+      this.users.splice(index, 1);
+      this.alert.show = true;
+      this.alert.type = 'success';
+      this.alert.message = 'User deleted successfully!';
+      this.alert.icon = 'fa-solid fa-circle-check';
+
+      setTimeout(() => {
+        this.alert.show = false;
+      }, 3000);
+    }
+  }
+
+  clearForm() {
+    this.userForm.reset();
+    this.isEditing = false;
   }
 }

@@ -1,8 +1,8 @@
 <div class="container mt-5">
   <div class="card">
     <div class="card-body">
-      <h5 class="card-title">Simple crud, user form</h5>
-      <form [formGroup]="userForm" class="row g-3 need-validation" novalidate (ngSubmit)="onSubmit()" >
+      <h5 class="card-title">User Form</h5>
+      <form [formGroup]="userForm" class="row g-3 need-validation" novalidate (ngSubmit)="onSubmit()">
         <div class="col-12 col-sm-6 col-md-4 col-lg-4">
           <label for="firstname" class="form-label">First name</label>
           <input 
@@ -55,7 +55,9 @@
           <div class="invalid-feedback">This field is required</div>
         </div>
         <div class="col-12 text-center">
-          <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Submit form</button>
+          <button type="submit" class="btn btn-primary" *ngIf="!isEditing" [disabled]="userForm.invalid">Submit user</button>
+          <button type="button" class="btn btn-secondary me-2" *ngIf="isEditing" (click)="clearForm()">Cancel</button>
+          <button type="button" class="btn btn-primary" *ngIf="isEditing" [disabled]="userForm.invalid" (click)="updateUser()">Update user</button>
         </div>
 
         <div class="col-12">
@@ -66,6 +68,111 @@
           </div>
         </div>
       </form>
+    </div>
+  </div>
+</div>
+
+<!-- Table -->
+<div class="container mt-3">
+  <div class="card">
+    <div class="card-body">
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead class="table-light">
+            <tr>
+              <th scope="col">Fristname</th>
+              <th scope="col">Lastname</th>
+              <th scope="col">Birthday</th>
+              <th scope="col">Email</th>
+              <th scope="col">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let user of users">
+              <td>{{ user.firstname }}</td>
+              <td>{{ user.lastname }}</td>
+              <td>{{ user.birthday }}</td>
+              <td>{{ user.email }}</td>
+              <td>
+                <div class="row text-center">
+                  <div class="col-12 col-md-4">
+                    <button type="button" class="btn btn-link" (click)="viewUser(user)" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fa-solid fa-eye text-primary-emphasis"></i></button>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <button type="button" class="btn btn-link" (click)="editUser(user)"><i class="fa-solid fa-pen-to-square text-warning-emphasis"></i></button>
+                  </div>
+                  <div class="col-12 col-md-4">
+                    <button type="button" class="btn btn-link" (click)="viewUser(user)" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fa-solid fa-trash text-danger-emphasis"></i></button>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <p class="text-center" *ngIf="users.length === 0">There is no data to display in the table.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- View User Modal -->
+<div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="viewUserModalLabel">User Information</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
+            <label for="firstname" class="form-label">First name</label>
+            <input type="text" id="firstname" name="firstname" value="{{ user.firstname }}" class="form-control" readonly>
+          </div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
+            <label for="lastname" class="form-label">Last name</label>
+            <input type="text" id="lastname" name="lastname" value="{{ user.lastname }}" class="form-control" readonly>
+          </div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
+            <label for="birthday" class="form-label">Birthday</label>
+            <input type="date" id="birthday" name="birthday" value="{{ user.birthday }}" class="form-control" readonly>
+          </div>
+          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" value="{{ user.email }}" class="form-control" readonly>
+          </div>
+          <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-2">
+            <label for="description" class="form-label">Description</label>
+            <textarea id="description" name="description" rows="3" class="form-control" readonly>{{ user.description }}</textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Delete User Modal -->
+<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12 mb-2">
+            <p>Are you sure you want to delete the user <strong>{{ user.firstname }} {{ user.lastname }}</strong>?</p>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete user</button>
+      </div>
     </div>
   </div>
 </div>
