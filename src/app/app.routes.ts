@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { PrincipalComponent } from './components/layouts/principal/principal.component';
 import { HomeComponent } from './components/pages/home/home.component';
 import { SimpleCrudComponent } from './components/pages/simple-crud/simple-crud.component';
-import { CrudComponent } from './components/pages/crud/crud.component';
+import { ApiCrudComponent } from './components/pages/api-crud/api-crud.component';
 
 export const routes: Routes = [
     {
@@ -19,7 +19,7 @@ export const routes: Routes = [
       },
       {
         path: 'api-crud',
-        component: CrudComponent
+        component: ApiCrudComponent
       },
     ]
   },

@@ -3,13 +3,13 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 @Component({
-  selector: 'app-crud',
+  selector: 'app-api-crud',
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule],
-  templateUrl: './crud.component.html',
-  styleUrl: './crud.component.scss'
+  templateUrl: './api-crud.component.html',
+  styleUrl: './api-crud.component.scss'
 })
-export class CrudComponent {
+export class ApiCrudComponent {
   userForm: FormGroup;
   isEditing = false;
   users: any[] = [];
