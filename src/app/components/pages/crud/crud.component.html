@@ -1,1 +1,87 @@
-<p>crud works!</p>
+<p-toast />
+<div class="container">
+  <div class="card flex justify-center">
+    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="row flex flex-col gap-4 w-full sm:w-56">
+      <div class="col-6 flex flex-col gap-1">
+        <input 
+          pInputText 
+          type="text" 
+          formControlName="firstname"
+          id="firstname" 
+          name="firstname" 
+          placeholder="Firstname" 
+          class="w-100 h-100"
+          [invalid]="isInvalid('firstname')"/>
+        @if (isInvalid('firstname')) { 
+          <p-message severity="error" size="small" variant="simple">Firstname is required.</p-message> 
+        }
+      </div>
+      <div class="col-6 flex flex-col gap-1">
+        <input 
+          pInputText 
+          type="text" 
+          formControlName="lastname"
+          id="lastname" 
+          name="lastname" 
+          placeholder="Lastname" 
+          class="w-100 h-100"
+          [invalid]="isInvalid('lastname')"/>
+        @if (isInvalid('lastname')) { 
+          <p-message severity="error" size="small" variant="simple">Lastname is required.</p-message> 
+        }
+      </div>
+      <div class="col-6 flex flex-col gap-1">
+        <input 
+          pInputText 
+          type="email" 
+          formControlName="email"
+          id="email" 
+          name="email" 
+          placeholder="Email" 
+          class="w-100 h-100"
+          [invalid]="isInvalid('email')" />
+        @if (isInvalid('email')) { 
+          @if (exampleForm.get('email')?.errors?.['required']) { 
+            <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
+          }
+          @if (exampleForm.get('email')?.errors?.['email']) { 
+            <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
+          }
+        }
+      </div>
+      <div class="col-6 flex flex-col gap-1">
+        <p-datepicker 
+          formControlName="birthday" 
+          id="birthday" 
+          name="birthday" 
+          placeholder="Birthday" 
+          class="w-100 h-100"
+          [invalid]="isInvalid('birthday')" 
+          [readonlyInput]="true"
+          />
+        @if (isInvalid('birthday')) {
+          <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
+        }
+      </div>
+      <div class="col-12 flex flex-col gap-1">
+        <textarea 
+          pTextarea 
+          formControlName="description" 
+          id="description" 
+          name="description" 
+          placeholder="Description" 
+          class="w-100 h-100"
+          rows="5" 
+          cols="30" 
+          [invalid]="isInvalid('description')">
+        </textarea>
+        @if (isInvalid('description')) {
+          <p-message severity="error" size="small" variant="simple">Description is required.</p-message>
+        }
+      </div>
+      <div class="col-12 flex justify-content-end">
+        <button pButton type="submit" icon="pi pi-check" [loading]="loading"><span pButtonLabel>Send form</span></button>
+      </div>
+    </form>
+  </div>
+</div>
