@@ -1,3 +1,15 @@
-<div class="card">
-  <p-menubar [model]="items1"></p-menubar>
-</div>
+<nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <div class="container-fluid d-flex justify-content-between">
+    <div class="navbar-brand d-flex align-items-center">
+      <img src="./assets/logo/angular_gradient.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+      <span>Angular App</span>
+    </div>
+    <div class="d-flex me-5" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" [routerLink]="'/'">Home</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>

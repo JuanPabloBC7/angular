@@ -1,31 +1,25 @@
+import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ToastModule } from 'primeng/toast';
-import { MessageModule } from 'primeng/message';
-import { MessageService } from 'primeng/api';
-import { InputTextModule } from 'primeng/inputtext';
-import { DatePicker } from 'primeng/datepicker';
-import { TextareaModule } from 'primeng/textarea';
-import { ButtonModule } from 'primeng/button';
 
 @Component({
   selector: 'app-crud',
   standalone: true,
-  imports: [ReactiveFormsModule, InputTextModule, ButtonModule, ToastModule, MessageModule, DatePicker, TextareaModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './crud.component.html',
-  styleUrl: './crud.component.scss',
-  providers: [MessageService]
+  styleUrl: './crud.component.scss'
 })
 export class CrudComponent {
-  exampleForm: FormGroup;
-  formSubmitted = false;
-  loading: boolean = false;
+  userForm: FormGroup;
+  alert: any = {
+    type: 'success',
+    message: 'User submitted successfully!',
+    icon: 'fa-solid fa-circle-check',
+    show: false
+  };
 
-  constructor(
-    private fb: FormBuilder,
-    private messageService: MessageService
-  ) {
-    this.exampleForm = this.fb.group({
+  constructor(private fb: FormBuilder) {
+    this.userForm = this.fb.group({
       firstname: ['', Validators.required],
       lastname: ['', Validators.required],
       birthday: ['', Validators.required],
@@ -35,26 +29,23 @@ export class CrudComponent {
   }
 
   onSubmit() {
-    this.formSubmitted = true;
-    this.loading = true;
-    if (this.exampleForm.valid) {
+    if (this.userForm.valid) {
+      this.alert.show = true;
+      this.alert.type = 'success';
+      this.alert.message = 'User submitted successfully!';
+      this.alert.icon = 'fa-solid fa-circle-check';
       setTimeout(() => {
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Message Content', life: 3000 });
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Form Submitted', life: 3000 });
-        this.exampleForm.reset();
-        this.formSubmitted = false;
-        this.loading = false;
-      }, 1500);
+        this.userForm.reset();
+        this.alert.show = false;
+      }, 3000);
     } else {
+      this.alert.show = true;
+      this.alert.type = 'danger';
+      this.alert.message = 'Something is wrong, please try again later.';
+      this.alert.icon = 'fa-solid fa-circle-exclamation';
       setTimeout(() => {
-        this.formSubmitted = false;
-        this.loading = false;
-      }, 2000);
+        this.alert.show = false;
+      }, 4000);
     }
-  }
-
-  isInvalid(controlName: string) {
-    const control = this.exampleForm.get(controlName);
-    return control?.invalid && (control.touched || this.formSubmitted);
   }
 }

@@ -1,87 +1,71 @@
-<p-toast />
-<div class="container">
-  <div class="card flex justify-center">
-    <form [formGroup]="exampleForm" (ngSubmit)="onSubmit()" class="row flex flex-col gap-4 w-full sm:w-56">
-      <div class="col-6 flex flex-col gap-1">
-        <input 
-          pInputText 
-          type="text" 
-          formControlName="firstname"
-          id="firstname" 
-          name="firstname" 
-          placeholder="Firstname" 
-          class="w-100 h-100"
-          [invalid]="isInvalid('firstname')"/>
-        @if (isInvalid('firstname')) { 
-          <p-message severity="error" size="small" variant="simple">Firstname is required.</p-message> 
-        }
-      </div>
-      <div class="col-6 flex flex-col gap-1">
-        <input 
-          pInputText 
-          type="text" 
-          formControlName="lastname"
-          id="lastname" 
-          name="lastname" 
-          placeholder="Lastname" 
-          class="w-100 h-100"
-          [invalid]="isInvalid('lastname')"/>
-        @if (isInvalid('lastname')) { 
-          <p-message severity="error" size="small" variant="simple">Lastname is required.</p-message> 
-        }
-      </div>
-      <div class="col-6 flex flex-col gap-1">
-        <input 
-          pInputText 
-          type="email" 
-          formControlName="email"
-          id="email" 
-          name="email" 
-          placeholder="Email" 
-          class="w-100 h-100"
-          [invalid]="isInvalid('email')" />
-        @if (isInvalid('email')) { 
-          @if (exampleForm.get('email')?.errors?.['required']) { 
-            <p-message severity="error" size="small" variant="simple">Email is required.</p-message>
-          }
-          @if (exampleForm.get('email')?.errors?.['email']) { 
-            <p-message severity="error" size="small" variant="simple">Please enter a valid email.</p-message>
-          }
-        }
-      </div>
-      <div class="col-6 flex flex-col gap-1">
-        <p-datepicker 
-          formControlName="birthday" 
-          id="birthday" 
-          name="birthday" 
-          placeholder="Birthday" 
-          class="w-100 h-100"
-          [invalid]="isInvalid('birthday')" 
-          [readonlyInput]="true"
-          />
-        @if (isInvalid('birthday')) {
-          <p-message severity="error" size="small" variant="simple">Date is required.</p-message>
-        }
-      </div>
-      <div class="col-12 flex flex-col gap-1">
-        <textarea 
-          pTextarea 
-          formControlName="description" 
-          id="description" 
-          name="description" 
-          placeholder="Description" 
-          class="w-100 h-100"
-          rows="5" 
-          cols="30" 
-          [invalid]="isInvalid('description')">
-        </textarea>
-        @if (isInvalid('description')) {
-          <p-message severity="error" size="small" variant="simple">Description is required.</p-message>
-        }
-      </div>
-      <div class="col-12 flex justify-content-end">
-        <button pButton type="submit" icon="pi pi-check" [loading]="loading"><span pButtonLabel>Send form</span></button>
-      </div>
-    </form>
+<div class="container mt-5">
+  <div class="card">
+    <div class="card-body">
+      <h5 class="card-title">Simple crud, user form</h5>
+      <form [formGroup]="userForm" class="row g-3 need-validation" novalidate (ngSubmit)="onSubmit()" >
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+          <label for="firstname" class="form-label">First name</label>
+          <input 
+            type="text" 
+            id="firstname" 
+            name="firstname" 
+            formControlName="firstname" 
+            [ngClass]="['form-control', userForm.get('firstname')?.invalid && (userForm.get('firstname')?.touched || userForm.get('firstname')?.dirty) ? 'is-invalid' : '']">
+          <div class="invalid-feedback">This field is required</div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+          <label for="lastname" class="form-label">Last name</label>
+          <input 
+            type="text" 
+            id="lastname" 
+            name="lastname" 
+            formControlName="lastname" 
+            [ngClass]="['form-control', userForm.get('lastname')?.invalid && (userForm.get('lastname')?.touched || userForm.get('lastname')?.dirty) ? 'is-invalid' : '']">
+          <div class="invalid-feedback">This field is required</div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+          <label for="birthday" class="form-label">Birthday</label>
+          <input 
+            type="date" 
+            id="birthday" 
+            name="birthday" 
+            formControlName="birthday" 
+            [ngClass]="['form-control', userForm.get('birthday')?.invalid && (userForm.get('birthday')?.touched || userForm.get('birthday')?.dirty) ? 'is-invalid' : '']">
+          <div class="invalid-feedback">This field is required</div>
+        </div>
+        <div class="col-12 col-sm-6 col-md-4 col-lg-4">
+          <label for="email" class="form-label">Email</label>
+          <input 
+            type="email" 
+            id="email" 
+            name="email" 
+            formControlName="email" 
+            [ngClass]="['form-control', userForm.get('email')?.invalid && (userForm.get('email')?.touched || userForm.get('email')?.dirty) ? 'is-invalid' : '']">
+          <div class="invalid-feedback">This field is required</div>
+        </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-12">
+          <label for="description" class="form-label">Description</label>
+          <textarea 
+            id="description" 
+            name="description" 
+            formControlName="description" 
+            rows="3" 
+            [ngClass]="['form-control', userForm.get('description')?.invalid && (userForm.get('description')?.touched || userForm.get('description')?.dirty) ? 'is-invalid' : '']">
+          </textarea>
+          <div class="invalid-feedback">This field is required</div>
+        </div>
+        <div class="col-12 text-center">
+          <button type="submit" class="btn btn-primary" [disabled]="userForm.invalid">Submit form</button>
+        </div>
+
+        <div class="col-12">
+          <div [ngClass]="'alert alert-' + alert.type + ' alert-dismissible d-flex align-items-center'" *ngIf="alert.show" role="alert">
+            <i [ngClass]="alert.icon + ' me-2 fa-2x'"></i>
+            {{ alert.message }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" (click)="alert.show=!alert.show"></button>
+          </div>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
