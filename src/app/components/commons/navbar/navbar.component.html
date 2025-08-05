@@ -6,8 +6,15 @@
     </div>
     <div class="d-flex me-5" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link active" aria-current="page" [routerLink]="'/'">Home</a>
+        <li class="nav-item ms-2">
+          <a ngClass="nav-link" [routerLink]="'/'" routerLinkActive="active">Home</a>
+        </li>
+        <li class="nav-item ms-2">
+          <a ngClass="nav-link" [routerLink]="'/simple-crud'" routerLinkActive="active">Simple CRUD</a>
+        </li>
+        <li class="nav-item ms-2">
+          <a class="nav-link" [routerLink]="'/api-crud'" routerLinkActive="active">API CRUD
+          </a>
         </li>
       </ul>
     </div>
