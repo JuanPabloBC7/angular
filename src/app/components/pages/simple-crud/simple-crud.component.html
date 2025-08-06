@@ -35,13 +35,18 @@
         </div>
         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
           <label for="birthday" class="form-label">Birthday</label>
-          <input 
-            type="date" 
-            id="birthday" 
-            name="birthday" 
-            formControlName="birthday" 
-            [ngClass]="['form-control', userForm.get('birthday')?.invalid && (userForm.get('birthday')?.touched || userForm.get('birthday')?.dirty) ? 'is-invalid' : '']">
-          <div class="invalid-feedback">This field is required</div>
+          <div class="input-group">
+            <input
+              type="text"
+              id="birthday" 
+              name="birthday" 
+              formControlName="birthday"
+              placeholder="yyyy-mm-dd"
+              ngbDatepicker
+              #d="ngbDatepicker"
+              [ngClass]="['form-control', userForm.get('birthday')?.invalid && (userForm.get('birthday')?.touched || userForm.get('birthday')?.dirty) ? 'is-invalid' : '']"/>
+            <button class="btn btn-outline-secondary fa-solid fa-calendar-days" (click)="d.toggle()" type="button"></button>
+          </div>
         </div>
         <div class="col-12 col-sm-6 col-md-6 col-lg-6">
           <label for="email" class="form-label">Email</label>
@@ -143,7 +148,7 @@
       </div>
       <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
         <label for="birthday" class="form-label">Birthday</label>
-        <input type="date" id="birthday" name="birthday" value="{{ user.birthday }}" class="form-control" readonly>
+        <input type="text" id="birthday" name="birthday" value="{{ user.birthday }}" class="form-control" readonly>
       </div>
       <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
         <label for="email" class="form-label">Email</label>

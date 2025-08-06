@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, signal, TemplateRef, WritableSignal } from '@angular/core';
+import { Component, inject, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-simple-crud',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule],
+  imports: [ReactiveFormsModule, CommonModule, NgbDatepickerModule],
   templateUrl: './simple-crud.component.html',
   styleUrl: './simple-crud.component.scss'
 })
@@ -35,11 +35,16 @@ export class SimpleCrudComponent {
 
   onSubmit() {
     if (this.userForm.valid) {
+      const { day, month, year } = this.userForm.value.birthday;
+      const formattedDay = String(day).padStart(2, '0');
+      const formattedMonth = String(month).padStart(2, '0');
+      this.userForm.value.birthday = `${formattedDay}/${formattedMonth}/${year}`;
+
       this.alert.show = true;
       this.alert.type = 'success';
       this.alert.message = 'User submitted successfully!';
       this.alert.icon = 'fa-solid fa-circle-check';
-      
+
       this.users.push(this.userForm.value);
       this.userForm.reset();
 
@@ -67,7 +72,11 @@ export class SimpleCrudComponent {
     this.userForm.patchValue({
       firstname: user.firstname,
       lastname: user.lastname,
-      birthday: user.birthday,
+      birthday: {
+        day: parseInt(user.birthday.split('/')[0], 10),
+        month: parseInt(user.birthday.split('/')[1], 10),
+        year: parseInt(user.birthday.split('/')[2], 10)
+      },
       email: user.email,
       description: user.description
     });
@@ -75,6 +84,11 @@ export class SimpleCrudComponent {
 
   updateUser() {
     if (this.userForm.valid) {
+      const { day, month, year } = this.userForm.value.birthday;
+      const formattedDay = String(day).padStart(2, '0');
+      const formattedMonth = String(month).padStart(2, '0');
+      this.userForm.value.birthday = `${formattedDay}/${formattedMonth}/${year}`;
+
       this.alert.show = true;
       this.alert.type = 'success';
       this.alert.message = 'User updated successfully!';
