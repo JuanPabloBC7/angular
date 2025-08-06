@@ -9,8 +9,6 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   imports: [
     NavbarComponent,
-    SidebarComponent,
-    FooterComponent,
     RouterOutlet,
 ],
   templateUrl: './principal.component.html',

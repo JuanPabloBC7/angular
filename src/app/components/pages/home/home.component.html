@@ -3,11 +3,18 @@
     <img class="img-fluid mx-auto mb-3" src="./assets/logo/angular_gradient.png" alt="Bootstrap" width="200" height="165">
     <h1 class="mb-3 fw-semibold lh-1">Welcome to my Angular App</h1>
     <p class="lead mb-4">
-      Here you can find examples of Angular components, including a simple CRUD application and an API CRUD application.
+      Here you can find examples of Angular components, including a simple CRUD application.
       <br>
       These are some things I've been working on while learning Angular.
       <br>
       <span class="text-body-secondary">This app is built with Angular 19.2.15 and Bootstrap 5.3.7.</span>
     </p>
+  </div>
+</div>
+<div class="row">
+  <div class="col-12 text-center">
+    <h5 tabindex="0" (mouseenter)="focusIn = true" (mouseleave)="focusIn = false" [ngClass]="{ 'fa-beat': focusIn }">
+      <a href="https://jpbalan7.onrender.com/">Reed more about me<i class="fa-solid fa-arrow-right ms-2"></i></a>
+    </h5>
   </div>
 </div>
