@@ -106,13 +106,13 @@
               <td>
                 <div class="row text-center">
                   <div class="col-12 col-md-4">
-                    <button type="button" class="btn btn-link" (click)="viewUser(user)" data-bs-toggle="modal" data-bs-target="#viewUserModal"><i class="fa-solid fa-eye text-primary-emphasis"></i></button>
+                    <button type="button" class="btn btn-link" (click)="viewUser(user, viewUserModal, 'xl')"><i class="fa-solid fa-eye text-primary-emphasis"></i></button>
                   </div>
                   <div class="col-12 col-md-4">
                     <button type="button" class="btn btn-link" (click)="editUser(user)"><i class="fa-solid fa-pen-to-square text-warning-emphasis"></i></button>
                   </div>
                   <div class="col-12 col-md-4">
-                    <button type="button" class="btn btn-link" (click)="viewUser(user)" data-bs-toggle="modal" data-bs-target="#deleteUserModal"><i class="fa-solid fa-trash text-danger-emphasis"></i></button>
+                    <button type="button" class="btn btn-link" (click)="viewUser(user, deleteUserModal, '')"><i class="fa-solid fa-trash text-danger-emphasis"></i></button>
                   </div>
                 </div>
               </td>
@@ -126,63 +126,55 @@
 </div>
 
 <!-- View User Modal -->
-<div class="modal fade" id="viewUserModal" tabindex="-1" aria-labelledby="viewUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-xl">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="viewUserModalLabel">User Information</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+<ng-template #viewUserModal let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">User Information</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+      <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
+        <label for="firstname" class="form-label">First name</label>
+        <input type="text" id="firstname" name="firstname" value="{{ user.firstname }}" class="form-control" readonly>
       </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
-            <label for="firstname" class="form-label">First name</label>
-            <input type="text" id="firstname" name="firstname" value="{{ user.firstname }}" class="form-control" readonly>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
-            <label for="lastname" class="form-label">Last name</label>
-            <input type="text" id="lastname" name="lastname" value="{{ user.lastname }}" class="form-control" readonly>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
-            <label for="birthday" class="form-label">Birthday</label>
-            <input type="date" id="birthday" name="birthday" value="{{ user.birthday }}" class="form-control" readonly>
-          </div>
-          <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" name="email" value="{{ user.email }}" class="form-control" readonly>
-          </div>
-          <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-2">
-            <label for="description" class="form-label">Description</label>
-            <textarea id="description" name="description" rows="3" class="form-control" readonly>{{ user.description }}</textarea>
-          </div>
-        </div>
+      <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
+        <label for="lastname" class="form-label">Last name</label>
+        <input type="text" id="lastname" name="lastname" value="{{ user.lastname }}" class="form-control" readonly>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
+        <label for="birthday" class="form-label">Birthday</label>
+        <input type="date" id="birthday" name="birthday" value="{{ user.birthday }}" class="form-control" readonly>
+      </div>
+      <div class="col-12 col-sm-6 col-md-6 col-lg-6 mb-2">
+        <label for="email" class="form-label">Email</label>
+        <input type="email" id="email" name="email" value="{{ user.email }}" class="form-control" readonly>
+      </div>
+      <div class="col-12 col-sm-12 col-md-12 col-lg-12 mb-2">
+        <label for="description" class="form-label">Description</label>
+        <textarea id="description" name="description" rows="3" class="form-control" readonly>{{ user.description }}</textarea>
       </div>
     </div>
-  </div>
-</div>
+	</div>
+	<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+	</div>
+</ng-template>
 
 <!-- Delete User Modal -->
-<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteUserModalLabel" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteUserModalLabel">Delete User</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-12 mb-2">
-            <p>Are you sure you want to delete the user <strong>{{ user.firstname }} {{ user.lastname }}</strong>?</p>
-          </div>
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete user</button>
+<ng-template #deleteUserModal let-modal>
+	<div class="modal-header">
+		<h4 class="modal-title" id="modal-basic-title">Delete Information</h4>
+		<button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss('Cross click')"></button>
+	</div>
+	<div class="modal-body">
+		<div class="row">
+      <div class="col-12 mb-2">
+        <p>Are you sure you want to delete the user <strong>{{ user.firstname }} {{ user.lastname }}</strong>?</p>
       </div>
     </div>
-  </div>
-</div>
+	</div>
+	<div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-danger" (click)="deleteUser()">Delete user</button>
+	</div>
+</ng-template>

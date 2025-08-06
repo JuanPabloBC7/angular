@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject, signal, TemplateRef, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-simple-crud',
@@ -10,6 +11,7 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
   styleUrl: './simple-crud.component.scss'
 })
 export class SimpleCrudComponent {
+  private modalService = inject(NgbModal);
   userForm: FormGroup;
   isEditing = false;
   users: any[] = [];
@@ -55,8 +57,9 @@ export class SimpleCrudComponent {
     }
   }
 
-  viewUser(user: any) {
+  viewUser(user: any, modal: TemplateRef<any>, modalSize: string = '') {
     this.user = user;
+    this.modalService.open(modal, { size: modalSize })
   }
 
   editUser(user: any) {
@@ -106,7 +109,7 @@ export class SimpleCrudComponent {
       this.alert.type = 'success';
       this.alert.message = 'User deleted successfully!';
       this.alert.icon = 'fa-solid fa-circle-check';
-
+      this.modalService.dismissAll();
       setTimeout(() => {
         this.alert.show = false;
       }, 3000);
