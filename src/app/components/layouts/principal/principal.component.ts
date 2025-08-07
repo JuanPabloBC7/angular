@@ -10,6 +10,7 @@ import { RouterOutlet } from '@angular/router';
   imports: [
     NavbarComponent,
     RouterOutlet,
+    FooterComponent
 ],
   templateUrl: './principal.component.html',
   styleUrl: './principal.component.scss'

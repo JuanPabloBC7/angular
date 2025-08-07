@@ -2,3 +2,13 @@
 
 /* Importing Bootstrap SCSS file. */
 @import 'bootstrap/scss/bootstrap';
+
+.logo {
+  // height: 6em;
+  // padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo.angular:hover {
+  filter: drop-shadow(0 0 2em #d81daf);
+}

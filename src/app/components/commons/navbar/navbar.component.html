@@ -1,20 +1,33 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
-  <div class="container-fluid d-flex justify-content-between">
-    <div class="navbar-brand d-flex align-items-center">
-      <img src="./assets/logo/angular_gradient.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top me-2">
+  <div class="container">
+    <a class="navbar-brand d-flex align-items-center logo angular" [routerLink]="'/'">
+      <img src="./assets/logo/angular_gradient.png" alt="Angular logo" width="30" height="30" class="d-inline-block align-text-top me-2">
       <span>Angular App</span>
-    </div>
-    <div class="d-flex me-5" id="navbarSupportedContent">
+    </a>
+
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler" type="button" (click)="isCollapsed = !isCollapsed" aria-controls="navbarSupportedContent" aria-expanded="!isCollapsed" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Collapse controlado con ngbCollapse -->
+    <div [ngbCollapse]="isCollapsed" class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-        <li class="nav-item ms-2">
+        <li class="nav-item">
           <a ngClass="nav-link" [routerLink]="'/'" routerLinkActive="active">Home</a>
         </li>
-        <li class="nav-item ms-2">
+        <li class="nav-item">
           <a ngClass="nav-link" [routerLink]="'/simple-crud'" routerLinkActive="active">Simple CRUD</a>
         </li>
-        <!-- <li class="nav-item ms-2">
-          <a class="nav-link" [routerLink]="'/api-crud'" routerLinkActive="active">API CRUD
-          </a>
+        <!-- Dropdown de ng-bootstrap -->
+        <!-- <li class="nav-item dropdown" ngbDropdown>
+          <a class="nav-link dropdown-toggle" ngbDropdownToggle href="#">Dropdown</a>
+          <ul ngbDropdownMenu class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Action</a></li>
+            <li><a class="dropdown-item" href="#">Another action</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
         </li> -->
       </ul>
     </div>
