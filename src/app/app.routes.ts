@@ -5,7 +5,7 @@ import { SimpleCrudComponent } from './components/pages/simple-crud/simple-crud.
 import { ApiCrudComponent } from './components/pages/api-crud/api-crud.component';
 
 export const routes: Routes = [
-    {
+  {
     path: '',
     component: PrincipalComponent,
     children: [
@@ -20,6 +20,10 @@ export const routes: Routes = [
       {
         path: 'api-crud',
         component: ApiCrudComponent
+      },
+      {
+        path: '**',
+        component: HomeComponent
       },
     ]
   },
