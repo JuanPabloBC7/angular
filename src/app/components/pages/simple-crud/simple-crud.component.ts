@@ -1,12 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject, TemplateRef } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { NgbDatepickerModule, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbDatepickerModule, NgbModal, NgbTooltipModule } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-simple-crud',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, NgbDatepickerModule],
+  imports: [ReactiveFormsModule, CommonModule, NgbDatepickerModule, NgbTooltipModule],
   templateUrl: './simple-crud.component.html',
   styleUrl: './simple-crud.component.scss'
 })

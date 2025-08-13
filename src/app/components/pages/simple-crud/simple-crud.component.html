@@ -110,13 +110,13 @@
             <td>
               <div class="row text-center">
                 <div class="col-12 col-md-4">
-                  <button type="button" class="btn btn-link" (click)="viewUser(user, viewUserModal, 'xl')"><i class="fa-solid fa-eye text-primary-emphasis"></i></button>
+                  <button type="button" class="btn btn-link" (click)="viewUser(user, viewUserModal, 'xl')" ngbTooltip="View user"><i class="fa-solid fa-eye text-primary-emphasis"></i></button>
                 </div>
                 <div class="col-12 col-md-4">
-                  <button type="button" class="btn btn-link" (click)="editUser(user)"><i class="fa-solid fa-pen-to-square text-warning-emphasis"></i></button>
+                  <button type="button" class="btn btn-link" (click)="editUser(user)" ngbTooltip="Edit user"><i class="fa-solid fa-pen-to-square text-warning-emphasis"></i></button>
                 </div>
                 <div class="col-12 col-md-4">
-                  <button type="button" class="btn btn-link" (click)="viewUser(user, deleteUserModal, '')"><i class="fa-solid fa-trash text-danger-emphasis"></i></button>
+                  <button type="button" class="btn btn-link" (click)="viewUser(user, deleteUserModal, '')" ngbTooltip="Delete user"><i class="fa-solid fa-trash text-danger-emphasis"></i></button>
                 </div>
               </div>
             </td>
